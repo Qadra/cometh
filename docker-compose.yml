@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+    db:
+        image: 'mariadb:10'
+        container_name: 'cometh_db'
+        environment:
+            MYSQL_ROOT_PASSWORD: 'lala'
+            MYSQL_DATABASE: 'vmail'
+            MYSQL_USER: 'lala'
+            MYSQL_PASSWORD: 'vmail'
+        volumes:
+            - ./db/data:/var/lib/mysql
+            - ./db/layout:/docker-entrypoint-initdb.d
