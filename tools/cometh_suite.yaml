@@ -1,0 +1,18 @@
+# Docker test setup
+host: &localhost
+  ip: 127.0.0.1
+  smtpport: 25
+  imapport: 143
+
+user: &localuser
+  username: test
+  password: lala
+
+SMTPConnect:
+  id: 1
+  host: *localhost
+
+SMTPAuth:
+  id: 2
+  depends: [1]
+  host: *localhost

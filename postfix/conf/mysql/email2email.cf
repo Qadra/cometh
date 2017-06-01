@@ -1,0 +1,5 @@
+user = root
+password = lala
+dbname = vmail
+query = SELECT email FROM users WHERE email='%s'
+hosts = inet:cometh_db

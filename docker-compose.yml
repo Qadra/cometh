@@ -9,6 +9,49 @@ services:
             MYSQL_DATABASE: 'vmail'
             MYSQL_USER: 'lala'
             MYSQL_PASSWORD: 'vmail'
+        ports:
+            - 3308:3306
         volumes:
             - ./db/data:/var/lib/mysql
-            - ./db/layout:/docker-entrypoint-initdb.d
+            - ./db/layout:/docker-entrypoint-initdb.d:ro
+
+    dovecot:
+        build: './dovecot'
+        image: 'cometh_dovecot'
+        container_name: 'cometh_dovecot'
+        links:
+            - db
+        volumes:
+            - ./spool/:/var/spool/postfix
+            - ./dovecot/conf:/etc/dovecot/conf.d
+            - ./mail/:/mail
+            - ./sieve/:/sieve
+        ports:
+            - "110:110"
+            - "143:143"
+            - "993:993"
+        depends_on:
+            - postfix
+
+    postfix:
+        build: './postfix'
+        image: 'cometh_postfix'
+        container_name: 'cometh_postfix'
+        links:
+            - db
+        volumes:
+            - ./spool/:/var/spool/postfix
+            - ./postfix/conf:/etc/postfix
+        ports:
+            - "25:25"
+            - "587:587"
+        env_file:
+            - config.env
+
+    spamd:
+        build: './spamd'
+        image: 'cometh_spamd'
+        container_name: 'cometh_spamd'
+        volumes:
+            - ./spool/spamass/:/var/spool/postfix/spamass/
+            - ./spamd/conf:/etc/spamassassin

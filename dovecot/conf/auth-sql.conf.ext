@@ -1,0 +1,17 @@
+passdb {
+	driver = sql
+	args = /etc/dovecot/conf.d/dovecot-sql.conf.ext
+}
+
+userdb {
+	driver = sql
+	args = /etc/dovecot/conf.d/dovecot-sql.conf.ext
+}
+
+# TODO: Use this??
+#
+#userdb {
+#	driver = static
+#	args = uid=cometh gid=cometh mail=maildir:/mail/%d/%n home=/sieve/%d/%n
+#} 
+

@@ -1,0 +1,5 @@
+user = root                                                             
+password = lala
+dbname = vmail                                                                 
+query = SELECT CONCAT(SUBSTRING_INDEX(users.email,'@',-1),'/',SUBSTRING_INDEX(users.email,'@',1),'/') FROM emails RIGHT OUTER JOIN users ON emails.userid = users.id WHERE emails.email='%s' OR users.email ='%s' LIMIT 1;
+hosts = cometh_db

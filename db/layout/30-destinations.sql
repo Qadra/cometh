@@ -6,4 +6,4 @@ CREATE TABLE `destinations` (
   UNIQUE KEY `destination` (`destination`,`forwarding`),
   KEY `forwarding` (`forwarding`),
   CONSTRAINT `destinations_ibfk_1` FOREIGN KEY (`forwarding`) REFERENCES `forwardings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

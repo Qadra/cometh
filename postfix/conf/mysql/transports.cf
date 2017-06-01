@@ -1,0 +1,5 @@
+user = root
+password = lala
+dbname = vmail
+query = SELECT transport FROM transports WHERE domain='%s'
+hosts = cometh_db

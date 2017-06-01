@@ -1,0 +1,5 @@
+user = root                                                             
+password = lala
+dbname = vmail
+query = SELECT "error" FROM forwardings WHERE local='%s'
+hosts = cometh_db

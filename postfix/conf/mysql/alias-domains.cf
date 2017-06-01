@@ -1,0 +1,5 @@
+user = root
+password = lala
+dbname = vmail
+query = SELECT domain AS virtual FROM domains WHERE domain='%s' AND virtual=1
+hosts = cometh_db

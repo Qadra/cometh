@@ -4,4 +4,4 @@ CREATE TABLE `domains` (
 	  `virtual` tinyint(1) NOT NULL DEFAULT '0',
 	  PRIMARY KEY (`id`),
 	  UNIQUE KEY `domain` (`domain`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -6,4 +6,4 @@ CREATE TABLE `emails` (
 	  UNIQUE KEY `email` (`email`),
 	  KEY `user` (`user`),
 	  CONSTRAINT `emails_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

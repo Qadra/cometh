@@ -1,0 +1,100 @@
+# Debian specific:  Specifying a file name will cause the first
+# line of that file to be used as the name.  The Debian default
+# is /etc/mailname.
+myorigin = example.com
+
+# The greeting presented when connecting with SMTP (ports 25/587)
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+
+mail_owner=cometh
+#setgid_group=cometh
+
+# Don't alert system users when emails arrive.
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+
+readme_directory = no
+
+# Do not force TLS usage, this is not recommended.
+# TLS parameters
+smtpd_tls_CAfile   = /etc/letsencrypt/live/example.com/chain.pem
+smtpd_tls_loglevel = 1
+smtpd_tls_received_header = yes
+smtpd_tls_security_level = may
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+
+# When contacting other servers
+smtp_tls_session_cache_database  = btree:${data_directory}/smtp_scache
+smtp_tls_note_starttls_offer = yes
+smtp_use_tls = yes
+
+smtpd_tls_cert_file = /etc/letsencrypt/live/example.com/cert.pem
+smtpd_tls_key_file  = /etc/letsencrypt/live/example.com/privkey.pem
+smtpd_use_tls = yes
+
+# TODO Change to yes, do not allow non-tls logins.
+smtpd_tls_auth_only = no
+
+#Enabling SMTP for authenticated users, and handing off authentication to Dovecot
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_authenticated_header = yes
+
+smtpd_milters = unix:spamass/spamass.sock
+
+smtpd_recipient_restrictions =
+        permit_sasl_authenticated,
+        permit_mynetworks,
+        reject_unauth_destination
+
+# See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
+# information on enabling SSL in the smtp client.
+
+myhostname = example.com
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+mydestination = localhost
+## 50 MB mail size limit
+message_size_limit = 52428800
+relayhost =
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+
+spamassassin_destination_recipient_limit = 1
+
+inet_protocols = ipv4 ipv6
+transport_maps = proxy:mysql:/etc/postfix/mysql/transports.cf
+
+                              # VIRTUAL DOMAINS #
+
+# Where we store emails
+virtual_mailbox_base = /srv/vmail
+
+# Mail to the virtual_mailbos_domains are delivered by this.
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+
+virtual_mailbox_domains = proxy:mysql:/etc/postfix/mysql/mailbox-domains.cf
+
+# The smtp server validates mail to virtual_mailbox_domains using this map
+virtual_mailbox_maps = proxy:mysql:/etc/postfix/mysql/mailbox-maps.cf
+
+# Alias domains where addresses are aliased to other local or remote domains.
+virtual_alias_domains = proxy:mysql:/etc/postfix/mysql/alias-domains.cf
+
+# Contains the map from address->address for the virtual_alias_domains.
+virtual_alias_maps = proxy:mysql:/etc/postfix/mysql/forwardings.cf,proxy:mysql:/etc/postfix/mysql/email2email.cf
+
+
+# The virtual UID/GID to use, use the vmail user.
+virtual_uid_maps = static:15000
+virtual_gid_maps = static:15000
+
+virtual_mailbox_limit = 0

@@ -4,4 +4,4 @@ CREATE TABLE `transports` (
 	  `transport` varchar(128) NOT NULL DEFAULT '',
 	  PRIMARY KEY (`id`),
 	  UNIQUE KEY `domain` (`domain`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
