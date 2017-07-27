@@ -22,7 +22,7 @@ readme_directory = no
 
 # Do not force TLS usage, this is not recommended.
 # TLS parameters
-smtpd_tls_CAfile   = /etc/letsencrypt/live/example.com/chain.pem
+smtpd_tls_CAfile = /etc/certs/chain.pem
 smtpd_tls_loglevel = 1
 smtpd_tls_received_header = yes
 smtpd_tls_security_level = may
@@ -33,8 +33,8 @@ smtp_tls_session_cache_database  = btree:${data_directory}/smtp_scache
 smtp_tls_note_starttls_offer = yes
 smtp_use_tls = yes
 
-smtpd_tls_cert_file = /etc/letsencrypt/live/example.com/cert.pem
-smtpd_tls_key_file  = /etc/letsencrypt/live/example.com/privkey.pem
+smtpd_tls_cert_file = /etc/certs/cert.pem
+smtpd_tls_key_file = /etc/certs/key.pem
 smtpd_use_tls = yes
 
 # TODO Change to yes, do not allow non-tls logins.

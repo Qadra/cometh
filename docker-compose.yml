@@ -26,6 +26,7 @@ services:
             - ./dovecot/conf:/etc/dovecot/conf.d
             - ./mail/:/mail
             - ./sieve/:/sieve
+            - /path/to/certs/:/etc/certs:ro
         ports:
             - "110:110"
             - "143:143"
@@ -42,6 +43,7 @@ services:
         volumes:
             - ./spool/:/var/spool/postfix
             - ./postfix/conf:/etc/postfix
+            - /path/to/certs/:/etc/certs:ro
         ports:
             - "25:25"
             - "587:587"
