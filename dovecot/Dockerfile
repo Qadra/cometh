@@ -21,9 +21,6 @@ RUN groupadd --gid 15000 cometh && \
 		&& \
 	rm -rf /etc/dovecot/conf.d
 
-#COPY conf /etc/dovecot/conf.d/
-
 EXPOSE 443 993 110
 
-#ENTRYPOINT ["/usr/sbin/dovecot", "-F"]
 CMD ["sh", "-c", "/opt/install.sh ; /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"]
